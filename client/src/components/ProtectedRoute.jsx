@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import {useDispatch} from 'react-redux';
 import { SetUser } from "../redux/usersSlice";
+import DefaultLayout from "./DefaultLayout";
 
 function ProtectedRoute({ children }) {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ function ProtectedRoute({ children }) {
       navigate("/login");
     }
   }, []);
-  return <div> {loading ? <div>loading...</div> : children}</div>;
+  return <div> {!loading && <DefaultLayout>{children}</DefaultLayout>}</div>;
 }
 
 export default ProtectedRoute;
