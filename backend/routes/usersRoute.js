@@ -6,10 +6,10 @@ const authMiddlewares = require('../middlewares/authMiddlewares');
 
 
 //register new user
-router.post('/register', async (req, res) => {
+router.post('/register', async (req, res) => {  
     try {
-        const existingUser = await User.findOne({ email: req.body.email });
-        if (existingUser) {
+        const existingUser = await User.findOne({ email: req.body.email }); //check if user already exists  
+        if (existingUser) { //  if user exists, return error    
             return res.status({
                 message: 'An account with this email already exists.',
                 success: false,
@@ -17,17 +17,17 @@ router.post('/register', async (req, res) => {
 
             });
         }
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        req.body.password = hashedPassword;
-        const newUser = new User(req.body)
-        await newUser.save();
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);        //hash password before saving to db 
+        req.body.password = hashedPassword; //replace password with hashed password 
+        const newUser = new User(req.body) 
+        await newUser.save(); 
         res.send({
             message: 'User created successfully.',
             success: true,
             data: null,
         });
     }
-    catch (error) {
+    catch (error) {  //catch any errors
         res.send({
             message: 'An error occurred.',
             success: false,
@@ -74,13 +74,13 @@ router.post('/login', async (req, res) => {
 });
 
 //get user by id 
-router.post("/get-user-by-id", authMiddlewares , async(req, res) => {
+router.post("/get-user-by-id", authMiddlewares , async(req, res) => {  //authMiddlewares is a middleware function that checks if the user is logged in
     try {
-        const user = await User.findById(req.body.userId);
-        res.send({
+        const user = await User.findById(req.body.userId);  //find user by id
+        res.send({  
             message: 'User fetched successfully.',
-            success: true,
-            data: user,
+            success: true,  
+            data: user,  
         });
     } catch (error) {
         res.send({
