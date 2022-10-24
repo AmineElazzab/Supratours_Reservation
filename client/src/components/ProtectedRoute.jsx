@@ -2,13 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { SetUser } from "../redux/usersSlice";
 import DefaultLayout from "./DefaultLayout";
 
 function ProtectedRoute({ children }) {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
+  const [user, setLoading] = useState(true);
+  // const [loading, setLoading] =  useSelector((state) => state.alerts);
   const navigate = useNavigate();
   const validateToken = async () => {
     try {
@@ -45,7 +46,7 @@ function ProtectedRoute({ children }) {
       navigate("/login");
     }
   }, []);
-  return <div> {!loading && <DefaultLayout>{children}</DefaultLayout>}</div>;
+  return <div> {!user && <DefaultLayout>{children}</DefaultLayout>}</div>;
 }
 
 export default ProtectedRoute;
