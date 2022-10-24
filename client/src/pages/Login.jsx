@@ -3,7 +3,9 @@ import { Form, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function login() {
+
+
+function Login() {
   const navigate = useNavigate();
   const onFinish = async (values) => {
     try {
@@ -11,7 +13,7 @@ function login() {
       if (response.data.success) {
         message.success(response.data.message);
         localStorage.setItem("token", response.data.data);
-        navigate("/");
+        navigate("/home");
       } else {
         message.error(response.data.message);
       }
@@ -20,7 +22,7 @@ function login() {
     }
   };
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center columns-1">
       <h2 className="text-4xl font-bold text-center text-black ">
         Bienvenue à
       </h2>
@@ -67,4 +69,4 @@ function login() {
   );
 }
 
-export default login;
+export default Login;
