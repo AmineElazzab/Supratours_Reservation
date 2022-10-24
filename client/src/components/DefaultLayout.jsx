@@ -62,10 +62,10 @@ function DefaultLayout({ children }) {
     <div className="layout-parent flex w-full p-[15px] h-[100vh] gap-[20px]">
       <div className="sidebar bg-orange-600 rounded-lg flex flex-col justify-start px-5 py-0  ">
         <div className="sidebar-header">
-          <h1 className="text-white text-[20px] mb-0 p-0 ">Easy-Booking</h1>
+          <h1 className="text-white text-[20px] mb-0 p-0 ">IL-MEGLIO</h1>
           <h1 className="role text-white text-[16px] mb-0 p-0 ">
-            {user?.name} <br />
-            Role :{user?.isAdmin ? "Admin" : "User"}
+            {/* {user?.name} <br /> */}
+            {user?.isAdmin ? "Admin" : "User"}
           </h1>
         </div>
         <div className="flex flex-col gap-5 justify-start mt-[150px] ">
