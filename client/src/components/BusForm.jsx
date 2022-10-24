@@ -3,6 +3,7 @@ import { Col, Form, message, Modal, Row } from "antd";
 import { axiosInstance } from "../helpers/axiosInstance";
 import { useDispatch } from "react-redux";
 import { ShowLoading, HideLoading } from "../redux/alertsSlice";
+import moment from "moment";
 
 
 
@@ -15,7 +16,10 @@ function BusForm({ showBusForm, setShowBusForm, type = "add" }) {
         dispatch(ShowLoading());
         let response = null;
         if(type === "add"){
-            response = await axiosInstance.post("/api/buses/add-bus", values)
+            response = await axiosInstance.post("/api/buses/add-bus", {
+                ...values,
+                date: moment(values.date).format("DD/MM/YYYY"),
+            } )
         }
         else{
         }
