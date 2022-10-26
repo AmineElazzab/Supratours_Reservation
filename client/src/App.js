@@ -9,6 +9,7 @@ import AdminHome from './pages/Admin/AdminHome';
 import AdminBuses from './pages/Admin/AdminBuses';
 import AdminUsers from './pages/Admin/AdminUsers';
 import AdminBookings from './pages/Admin/AdminBookings';
+import BookNow from './pages/BookNow';
 // import Loader from './components/Loader';
 
 
@@ -18,13 +19,70 @@ function App() {
       {/* <Loader /> */}
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<ProtectedRoute> <Home /> </ProtectedRoute>} />
-          <Route path="/admin" element={<ProtectedRoute> <AdminHome /> </ProtectedRoute>} />
-          <Route path="/admin/buses" element={<ProtectedRoute> <AdminBuses /> </ProtectedRoute>} />
-          <Route path="/admin/users" element={<ProtectedRoute> <AdminUsers /> </ProtectedRoute>} />
-          <Route path="/admin/bookings" element={<ProtectedRoute> <AdminBookings /> </ProtectedRoute>} />
-          <Route path="/Register" element={<PublicRoute> <Register /> </PublicRoute>} />
-          <Route path="/Login" element={<PublicRoute> <Login /> </PublicRoute>} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/book-now/:id"
+            element={
+              <ProtectedRoute>
+                <BookNow />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminHome />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/buses"
+            element={
+              <ProtectedRoute>
+                <AdminBuses />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedRoute>
+                <AdminUsers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/bookings"
+            element={
+              <ProtectedRoute>
+                <AdminBookings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/Register"
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/Login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
