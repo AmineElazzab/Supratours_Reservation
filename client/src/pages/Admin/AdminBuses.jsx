@@ -6,12 +6,13 @@ import PageTitle from "../../components/PageTitle";
 import { HideLoading, ShowLoading } from "../../redux/alertsSlice";
 import { message, Table } from "antd";
 import { axiosInstance } from "../../helpers/axiosInstance";
-import moment from "moment";
 
 function AdminBuses() {
   const dispatch = useDispatch();
   const [showBusForm, setShowBusForm] = React.useState(false);
   const [buses, setBuses] = useState([]);
+  const [selectedBus, setSelectedBus] = useState(null);
+
 
   const getBuses = async () => {
     try {
@@ -20,6 +21,25 @@ function AdminBuses() {
       dispatch(HideLoading());
       if (response.data.success) {
         setBuses(response.data.data);
+      } else {
+        message.error(response.data.message);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  };
+
+  const deleteBus = async (id) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await axiosInstance.post("/api/buses/delete-bus", {
+        _id: id,
+      });
+      dispatch(HideLoading());
+      if (response.data.success) {
+       message.success(response.data.message);
+        getBuses();
       } else {
         message.error(response.data.message);
       }
@@ -53,7 +73,7 @@ function AdminBuses() {
     {
       title: "Date of Journey",
       dataIndex: "date",
-      render: (date) => moment(date).format("DD/MM/YYYY"),
+      
     },
     {
       title: "Departure Time",
@@ -78,15 +98,16 @@ function AdminBuses() {
         <div className="flex gap-3">
           <i
             className="ri-delete-bin-line cursor-pointer"
-            // onClick={() => deleteBus(record._id)}
+            onClick={() => deleteBus(record._id)}
           ></i>
 
           <i
             className="ri-pencil-line cursor-pointer"
-            // onClick={() => {
-            //   setSelectedBus(record);
-            //   setShowBusForm(true);
-            // }}
+            onClick={() => {
+              setSelectedBus(record);
+              setShowBusForm(true);
+              
+            }}
           ></i>
         </div>
       ),
@@ -117,7 +138,10 @@ function AdminBuses() {
         <BusForm
           showBusForm={showBusForm}
           setShowBusForm={setShowBusForm}
-          type="add"
+          type={selectedBus ? "edit" : "add"}
+          selectedBus={selectedBus}   
+          setSelectedBus={setSelectedBus}
+           getData={getBuses}
         />
       )}
     </div>
