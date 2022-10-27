@@ -15,15 +15,15 @@ function SeatSelection({ selectedSeats, setSelectedSeats, bus }) {
     <div>
       <div className="bus-container w-[400px]">
         <Card>
-          <Row gutter={[5, 5]}>
+          <Row gutter={[0, 5]}>
             {Array.from(Array(capacity).keys()).map((seat) => {
-             let seatClass = ``;
-             selectedSeats.includes(seat + 1);
-             if (selectedSeats.includes(seat + 1)) {
-               seatClass = `bg-orange-500 border-[2px] border-orange-500 text-center text-black text-base font-mono p-1 cursor-pointer w-10 h-10 rounded-tl-3xl rounded-br-3xl `;
-             } else if (bus.seatsBooked.includes(seat + 1)) {
-               seatClass = `bg-black border-[2px] border-black text-center text-white text-base font-mono p-1 cursor-pointer w-10 h-10 rounded-tl-3xl rounded-br-3xl `;
-             }
+              let seatClass = ``;
+              selectedSeats.includes(seat + 1);
+              if (selectedSeats.includes(seat + 1)) {
+                seatClass = `bg-orange-500 border-[2px] border-orange-500 text-center text-black text-base font-mono p-1 cursor-pointer w-10 h-10 rounded-tl-3xl rounded-br-3xl `;
+              } else if (bus.seatsBooked.includes(seat + 1)) {
+                seatClass = `bg-black border-[2px] border-black text-center text-white text-base font-mono p-1 cursor-pointer w-10 h-10 rounded-tl-3xl rounded-br-3xl `;
+              }
               return (
                 <Col span={6}>
                   <div className="flex justify-center">
