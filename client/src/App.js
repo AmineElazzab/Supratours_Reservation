@@ -10,12 +10,13 @@ import AdminBuses from './pages/Admin/AdminBuses';
 import AdminUsers from './pages/Admin/AdminUsers';
 import AdminBookings from './pages/Admin/AdminBookings';
 import BookNow from './pages/BookNow';
+import Profile from './pages/Profile';
 // import Loader from './components/Loader';
 
 
 function App() {
   return (
-    <div className="App m-5">
+    <div className="App">
       {/* <Loader /> */}
       <BrowserRouter>
         <Routes>
@@ -32,6 +33,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <BookNow />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
               </ProtectedRoute>
             }
           />
