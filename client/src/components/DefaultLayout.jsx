@@ -59,8 +59,8 @@ function DefaultLayout({ children }) {
   const menutoBeRendered = user?.isAdmin ? adminMenu : userMenu;
   const activeRoute = window.location.pathname;
   return (
-    <div className="layout-parent flex w-full  h-full gap-[20px]">
-      <div className="sidebar bg-orange-600 rounded-lg flex flex-col justify-start px-5 py-0  ">
+    <div className="layout-parent flex w-full  h-screen gap-[20px]">
+      <div className="sidebar bg-orange-600 flex flex-col justify-start px-5 py-0  ">
         <div className="sidebar-header">
           <h1 className="text-white text-[20px] mb-0 p-0 ">IL-MEGLIO</h1>
           <h1 className="role text-white text-[16px] mb-0 p-0 ">
