@@ -45,6 +45,13 @@ const busSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
+    seatsAvailable: {
+        type: Number,
+        default : function() {
+            return this.seats - this.seatsBooked.length
+        }
+        
+    },
     status: {
         type: String,
         default: "Yet to start"
