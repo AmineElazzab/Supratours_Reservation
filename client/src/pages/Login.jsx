@@ -124,13 +124,12 @@ function Login() {
                     />
                   </div>
                 </Form.Item>
-                <div className="flex items-center justify-between">
-                  <div className="text-sm">
-                    <a className="text-orange-400 hover:text-orange-500">
+              
+                  <div className="text-sm text-center">
+                    <a className="text-orange-400 hover:text-orange-500 ">
                       Forgot your password?
                     </a>
                   </div>
-                </div>
                 {/* <div class="my-10">
                   <button className="w-full block bg-orange-500 hover:bg-orange-400 focus:bg-orange-400 text-white font-semibold rounded-lg px-4 py-3 mt-6">
                     Login
