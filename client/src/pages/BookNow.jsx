@@ -11,7 +11,6 @@ function BookNow() {
   const params = useParams();
   const dispatch = useDispatch();
   const [bus, setBus] = useState(null);
-
   const getBus = async () => {
     try {
       dispatch(ShowLoading());
@@ -21,6 +20,25 @@ function BookNow() {
       dispatch(HideLoading());
       if (response.data.success) {
         setBus(response.data.data);
+      } else {
+        message.error(response.data.message);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  };
+
+const bookNow = async () => {
+    try {
+      dispatch(ShowLoading());
+      const response = await axiosInstance.post("/api/bookings/book-seat", {
+        bus: bus._id,
+        seats: selectedSeats,
+      });
+      dispatch(HideLoading());
+      if (response.data.success) {
+        message.success(response.data.message);
       } else {
         message.error(response.data.message);
       }
@@ -74,11 +92,11 @@ function BookNow() {
           <Col lg={8} xs={12} sm={12}>
           <div className="text-xl flex flex-col  mt-[250px] items-start ml-[300px] ">
               <h1 className="text-center">
-                <i class="ri-creative-commons-by-fill"></i> Bus booked seats{" "}
-                <br /> {bus.bookedSeats}
+                <i class="ri-creative-commons-by-fill"></i> Seats Left{" "}
+                <br /> {bus.seats - bus.seatsBooked.length}
               </h1>
           <h1 className="text-center mt-5">
-                <i class="ri-creative-commons-by-fill"></i> Bus available seats{" "}
+                <i class="ri-creative-commons-by-fill"></i> Bus Seats Selected  {" "}
                 <br /> {selectedSeats.join("/ ")}
               </h1>
               <h1 className="text-center mt-5">
@@ -93,12 +111,13 @@ function BookNow() {
                 selectedSeats={selectedSeats}
                 setSelectedSeats={setSelectedSeats}
                 bus={bus}
+                // seatsBooked={bus.seatsBooked}
               />
             </div>
           </Col>
           <Col lg={24} xs={24} sm={24}>
             <div className="flex justify-center mt-3">
-              <button className="bg-orange-400 text-white px-10 py-2 rounded-md">
+              <button className="bg-orange-400 text-white px-10 py-2 rounded-md" onClick={bookNow}>
                 Book Now
               </button>
               </div>
