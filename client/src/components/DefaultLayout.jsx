@@ -57,7 +57,11 @@ function DefaultLayout({ children }) {
     },
   ];
   const menutoBeRendered = user?.isAdmin ? adminMenu : userMenu;
-  const activeRoute = window.location.pathname;
+  let activeRoute = window.location.pathname;
+  if(window.location.pathname.includes('book-now')){
+    activeRoute = '/';
+  }
+
   return (
     <div className="layout-parent flex w-full  h-screen gap-[20px]">
       <div className="sidebar bg-orange-600 flex flex-col justify-start px-5 py-0  ">
