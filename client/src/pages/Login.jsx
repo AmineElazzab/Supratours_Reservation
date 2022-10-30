@@ -103,7 +103,7 @@ function Login() {
                   <div class="space-y-2">
                     <input
                       className=" w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-orange-400"
-                      type="mail"
+                      type="email"
                       autoComplete="true"
                       autoFocus
                       placeholder="mail@gmail.com"
