@@ -11,6 +11,7 @@ import AdminUsers from './pages/Admin/AdminUsers';
 import AdminBookings from './pages/Admin/AdminBookings';
 import BookNow from './pages/BookNow';
 import Profile from './pages/Profile';
+import Bookings from './pages/Bookings';
 // import Loader from './components/Loader';
 
 
@@ -33,6 +34,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <BookNow />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/bookings"
+            element={
+              <ProtectedRoute>
+                <Bookings />
               </ProtectedRoute>
             }
           />
