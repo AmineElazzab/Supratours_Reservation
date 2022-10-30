@@ -3,21 +3,21 @@ const mangoose = require('mongoose');
 const bookingSchema = new mangoose.Schema({
     bus: {
         type: mangoose.Schema.ObjectId,
-        ref: 'Bus',
-        required: true
+        ref: 'buses',
+        require: true
     },
     user: {
         type: mangoose.Schema.ObjectId,
-        ref: 'User',
-        // required: true
+        ref: 'users',
+        require: true
     },
     seats: {
         type: Array,
-        required: true
+        require: true
     },
     transactionId: {
         type: String,
-        required: true
+        require: true
     },
 },
     {
