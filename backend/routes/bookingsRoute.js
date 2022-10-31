@@ -2,6 +2,7 @@ const router = require('express').Router();
 const authMiddlewares = require('../middlewares/authMiddlewares');
 const Booking = require('../models/bookingsModel');
 const Bus = require('../models/busModel');
+// const User = require('../models/userModel');
 const stripe = require('stripe')(process.env.stripe_key);
 const { v4: uuidv4 } = require("uuid");
 
@@ -100,7 +101,39 @@ router.post("/get-bookings-by-user-id", authMiddlewares, async (req, res) => {
         });
     }
 });
-
+ 
+//cancel booking
+// router.delete("/api/bookings/${booking_id}/${user_id}/${bus_id}", authMiddlewares, async(req , res)=>{
+//     try{
+//         const booking = await Booking.findById(req.params.booking_id);
+//         const bus = await Bus.findById(req.params.bus_id);
+//         const user = await User.findById(req, params.user_id);
+//         if(!booking || !user || !bus){
+//             res.status(404).send({
+//                 message: "Booking not found",
+//                 data: error,
+//                 success: false,
+//             });
+//         }
+//         booking.remove();
+//         bus.seatsBooked = bus.seatsBooked.filter(
+//             (seat) => !booking.seats.includes(seat)
+//         );
+//         await bus.save();
+//         res.status(200).send({
+//             message: "Booking cancelled successfully",
+//             data: booking,
+//             success: true,
+//         });
+        
+//     }catch(error){
+//         res.status(500).send({
+//             message: "Booking cancellation failed",
+//             data: error,
+//             success: false,
+//         });
+//     }
+// });
 
 
 module.exports = router;
