@@ -28,6 +28,7 @@ function SeatSelection({ selectedSeats, setSelectedSeats, bus }) {
 
                 // seatClass = `bg-black border-[2px] border-black text-center text-white text-base font-mono p-1 cursor-pointer w-10 h-10 rounded-tl-3xl rounded-br-3xl `;
               }
+              
               return (
                 <Col span={6}>
                   <div className="flex justify-center">
@@ -42,7 +43,10 @@ function SeatSelection({ selectedSeats, setSelectedSeats, bus }) {
                   </div>
                 </Col>
               );
+              
+                
             })}
+           
           </Row>
         </Card>
       </div>
