@@ -80,7 +80,7 @@ function BookNow() {
           <Col lg={24} xs={24} sm={24}>
             <div className="text-2xl flex row-auto justify-between">
               <h1 className="text-start">
-                {bus.name} - {bus.number}
+                {bus.name} / {bus.number}
               </h1>
               <h1 className="text-end">
                 <i class="ri-bus-2-fill"></i> {bus.from} - {bus.to}
@@ -109,18 +109,25 @@ function BookNow() {
               </h1>
             </div>
           </Col>
+          <Col lg={24} xs={24} sm={24}>
+            <div className=" flex justify-center text-base">
+              <i class="ri-wifi-fill"></i>
+              <i class="ri-tv-line"></i>
+              <i class="ri-map-pin-line"></i>
+              <i class="ri-music-2-line"></i>
+              <i class="ri-battery-2-line"></i>
+              <i class="ri-cup-line"></i>
+              <i class="ri-lightbulb-line"></i>
+            </div>
+          </Col>
           <Col lg={8} xs={12} sm={12}>
-            <div className="border-[1px] border-orange-400 mt-10"></div>
+            <div className="border-[1px] border-orange-400 mt-5"></div>
 
             <div className="text-xl flex flex-row  justify-center mt-[250px] items-start  gap-10">
               <h1 className="text-center">
                 <i class="ri-creative-commons-by-fill"></i> Seats Left <br />{" "}
                 {bus.seats - bus.seatsBooked.length}
               </h1>
-              {/* <h1 className="text-center mt-5">
-                <i class="ri-creative-commons-by-fill"></i> Bus Seats Selected  {" "}
-                <br /> {selectedSeats.join("/ ")}
-              </h1> */}
               <h1 className="text-center ">
                 <i class="ri-money-dollar-circle-line"></i> Total price <br />{" "}
                 {selectedSeats.length * bus.price} DH
@@ -149,7 +156,7 @@ function BookNow() {
           </Col>
 
           <Col lg={16} xs={12} sm={12}>
-            <div className="border-[1px] border-orange-400 mt-10"></div>
+            <div className="border-[1px] border-orange-400 mt-5"></div>
             <div className="flex justify-center mt-5 ">
               <SeatSelection
                 selectedSeats={selectedSeats}
