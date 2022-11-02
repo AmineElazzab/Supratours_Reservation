@@ -13,7 +13,6 @@ function AdminBuses() {
   const [buses, setBuses] = useState([]);
   const [selectedBus, setSelectedBus] = useState(null);
 
-
   const getBuses = async () => {
     try {
       dispatch(ShowLoading());
@@ -30,15 +29,20 @@ function AdminBuses() {
     }
   };
 
-  const deleteBus = async (id) => {
+
+
+  const cancelBooking = async (id) => {
     try {
       dispatch(ShowLoading());
-      const response = await axiosInstance.post("/api/buses/delete-bus", {
-        _id: id,
+      const response = await axiosInstance.delete(`/api/buses/${id}`, {
+        //id
+        // bookings_id = ,
+        data: {},
+
       });
       dispatch(HideLoading());
       if (response.data.success) {
-       message.success(response.data.message);
+        message.success(response.data.message);
         getBuses();
       } else {
         message.error(response.data.message);
@@ -73,7 +77,6 @@ function AdminBuses() {
     {
       title: "Date of Journey",
       dataIndex: "date",
-      
     },
     {
       title: "Departure Time",
@@ -98,7 +101,7 @@ function AdminBuses() {
         <div className="flex gap-3">
           <i
             className="ri-delete-bin-line cursor-pointer"
-            onClick={() => deleteBus(record._id)}
+            onClick={() => cancelBooking(record._id)}
           ></i>
 
           <i
@@ -106,7 +109,6 @@ function AdminBuses() {
             onClick={() => {
               setSelectedBus(record);
               setShowBusForm(true);
-              
             }}
           ></i>
         </div>
@@ -139,9 +141,9 @@ function AdminBuses() {
           showBusForm={showBusForm}
           setShowBusForm={setShowBusForm}
           type={selectedBus ? "edit" : "add"}
-          selectedBus={selectedBus}   
+          selectedBus={selectedBus}
           setSelectedBus={setSelectedBus}
-           getData={getBuses}
+          getData={getBuses}
         />
       )}
     </div>
