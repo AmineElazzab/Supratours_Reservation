@@ -8,8 +8,6 @@ import { message, Modal, Table } from "antd";
 import { axiosInstance } from "../helpers/axiosInstance";
 
 function Bookings() {
-  //cancel booking
- 
   const [showPrintModal, setShowPrintModal] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [bookings, setBookings] = useState([]);
@@ -41,31 +39,22 @@ function Bookings() {
     }
   };
 
-  const CancelBooking = async () => {
-      try {
-        dispatch(ShowLoading());
-        const res = await axiosInstance.get(
-          `/api/bookings/${localStorage.getItem("user_id")}`
-        );
-        const bus_id = res.data.data[0].bus._id;
-        const user_id = res.data.data[0].user._id;
-        const booking_id = res.data.data[0]._id;
-        const response = await axiosInstance.delete(
-          `/api/bookings/${booking_id}/${user_id}/${bus_id}`,
-          {}
-        );
-        dispatch(HideLoading());
-        if (response.data.success) {
-          message.success(response.data.message);
-          getBookings();
-        }else{
-          message.error(response.data.message);
-        }
-      } catch (error) {
-        dispatch(HideLoading());
-        message.error(error.message);
-
+  //delet booking
+  const deleteBooking = async (_id) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await axiosInstance.delete(`/api/bookings/${_id}`, {});
+      dispatch(HideLoading());
+      if (response.data.success) {
+        message.success(response.data.message);
+        getBookings();
+      } else {
+        message.error(response.data.message);
       }
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
   };
 
   const columns = [
@@ -140,28 +129,22 @@ function Bookings() {
       dataIndex: "action",
       key: "action",
       render: (text, record) => (
-        <div className="flex gap-4">
-          <span>
-            <button
-              className="bg-red-500 text-white px-2 py-1 rounded"
-              onClick={() => {
-                CancelBooking();
-              }}
-            >
-              Cancel
-            </button>
-          </span>
-          <span>
-            <button
-              className="bg-green-500 text-white px-2 py-1 rounded"
-              onClick={() => {
-                setSelectedBooking(record);
-                setShowPrintModal(true);
-              }}
-            >
-              Print Ticket
-            </button>
-          </span>
+        <div className="flex items-center">
+          <button
+            className="bg-red-500 text-white px-2 py-1 rounded mr-2"
+            onClick={() => deleteBooking(record.key)}
+          >
+            Cancel
+          </button>
+          <button
+            className="bg-blue-500 text-white px-2 py-1 rounded"
+            onClick={() => {
+              setSelectedBooking(record);
+              setShowPrintModal(true);
+            }}
+          >
+            Print
+          </button>
         </div>
       ),
     },
@@ -228,19 +211,22 @@ function Bookings() {
             </p>
           </div>
           <p className="flex justify-center">
-            <span className="font-bold">Free Wifi :<span><i class="ri-arrow-down-s-fill"></i></span> </span>
+            <span className="font-bold">
+              Free Wifi :
+              <span>
+                <i class="ri-arrow-down-s-fill"></i>
+              </span>{" "}
+            </span>
           </p>
-          
-   <div className="text-center flex justify-center">
+
+          <div className="text-center flex justify-center">
             <img
               alt="Barcode Generator TEC-IT"
               src="https://barcode.tec-it.com/barcode.ashx?data=WIFI%3AT%3AWPA%3BS%3AYoucode1%3BP%3AYcode%402021%3B%3B&code=QRCode_Wifi&dmsize=Default&eclevel=L"
             />
           </div>
-         
-           <div className="pt-[8px] text-center font-serif">
-          
-          </div>
+
+          <div className="pt-[8px] text-center font-serif"></div>
           <div className="flex justify-center mt-4">
             <button
               className="bg-green-500 text-white px-2 py-1 rounded"
@@ -250,44 +236,10 @@ function Bookings() {
             >
               Print
             </button>
-          </div>       
+          </div>
         </Modal>
-          )}
-          {/* {cancelBooking && (
-            <Modal
-              title="Cancel Booking"
-              onCancel={() => {
-                setCancelBooking(false);
-                setSelectedBooking(null);
-              }}
-              visible={cancelBooking}
-              footer={null}
-              width={700}
-            >
-              <h1 className="text-lg flex justify-center">
-                Are you sure you want to cancel this booking?
-              </h1>
-              <hr />
-              <div className="flex justify-between mt-4">
-                <p className="flex justify-center">
-                  <span className="font-bold">Bus Name / Bus Number :</span>{" "}
-                  {selectedBooking?.bus.name} / {selectedBooking?.number}
-                </p>
-                <p className="flex justify-center">
-                  <span className="font-bold">From - To :</span>{" "}
-                  {selectedBooking?.from} - {selectedBooking?.to}
-                </p>
-                <p className="flex justify-center">
-                  <span className="font-bold">Date :</span>{" "}
-                  {selectedBooking?.date}
-                </p>
-              </div>
-                </Model>
-              )} */}
-
-        </div>
-
-    
+      )}
+    </div>
   );
 }
 
