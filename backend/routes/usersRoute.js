@@ -91,6 +91,24 @@ router.post("/get-user-by-id", authMiddlewares , async(req, res) => {  //authMid
         
     }
 });
+
+//get all users
+router.get("/get-all-users", authMiddlewares, async(req, res) => {
+    try {
+        const users = await User.find();  //find all users
+        res.send({
+            message: 'Users fetched successfully.',
+            success: true,
+            data: users,
+        });
+    } catch (error) {
+        res.send({
+            message: 'An error occurred.',
+            success: false,
+            data: null,
+        })
+    }
+});
     
 
 //update user
