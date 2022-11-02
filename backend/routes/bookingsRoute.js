@@ -101,14 +101,35 @@ router.post("/get-bookings-by-user-id", authMiddlewares, async (req, res) => {
         });
     }
 });
- 
-//cancel booking
-// router.delete("/api/bookings/${booking_id}/${user_id}/${bus_id}", authMiddlewares, async(req , res)=>{
-//     try{
-//         const booking = await Booking.findById(req.params.booking_id);
-//         const bus = await Bus.findById(req.params.bus_id);
-//         const user = await User.findById(req, params.user_id);
-//         if(!booking || !user || !bus){
+
+// cancel bookings
+router.delete("/:id", authMiddlewares, async (req, res) => {
+    try {
+        await Booking.findByIdAndDelete(req.params.id)
+            && await Bus.findByIdAndDelete(req.params.id)
+                .then(res.status(200).send({
+                    message: "Booking cancelled successfully",
+                    success: true
+                }))
+
+
+
+    } catch (error) {
+        res.status(500).send({
+            message: "Booking cancellation failed",
+            data: error,
+            success: false,
+        });
+    }
+});
+
+
+//delet booking
+// router.delete("/:id", authMiddlewares, async (req, res) => {
+//     try {
+//         const booking = await Booking.findByIdAndDelete(req.params.id);
+//         const bus = await Bus.findByIdAndDelete(req.params.id);
+//         if (!booking || !bus) {
 //             res.status(404).send({
 //                 message: "Booking not found",
 //                 data: error,
@@ -125,8 +146,8 @@ router.post("/get-bookings-by-user-id", authMiddlewares, async (req, res) => {
 //             data: booking,
 //             success: true,
 //         });
-        
-//     }catch(error){
+
+//     } catch (error) {
 //         res.status(500).send({
 //             message: "Booking cancellation failed",
 //             data: error,
@@ -134,6 +155,7 @@ router.post("/get-bookings-by-user-id", authMiddlewares, async (req, res) => {
 //         });
 //     }
 // });
+
 
 
 module.exports = router;
