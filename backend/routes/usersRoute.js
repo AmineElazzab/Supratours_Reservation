@@ -112,5 +112,33 @@ router.get("/get-all-users", authMiddlewares, async(req, res) => {
     
 
 //update user
+router.post("/update-user", authMiddlewares, async(req, res) => {
+    try {
+        const user = await User.findById(req.body.userId);  //find user by id
+        if (req.body.name) {  //if name is provided, update name
+            user.name = req.body.name;
+        }
+        if (req.body.email) {  //if email is provided, update email
+            user.email = req.body.email;
+        }
+        if (req.body.password) {  //if password is provided, update password
+            const hashedPassword = await bcrypt.hash(req.body.password, 10);
+            user.password = hashedPassword;
+        }
+        await user.save();  //save updated user 
+        res.send({
+            message: 'User updated successfully.',
+            success: true,
+            data: null,
+        });
+    } catch (error) {
+        res.send({
+            message: 'An error occurred.',
+            success: false,
+            data: null,
+        })
+    }
+});
+
 
 module.exports = router;
