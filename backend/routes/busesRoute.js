@@ -19,9 +19,9 @@ router.post("/add-bus", async (req, res) => {
 });
 
 //update bus
-router.get("/update-bus", authMiddlewares, async (req, res) => {
+router.put("/:id", authMiddlewares, async (req, res) => {
     try {
-        await Bus.findByIdAndUpdate(req.body._id, req.body);
+        await Bus.findByIdAndUpdate(req.params.id, req.body);
         return res.status(200).send({ success: true, message: "Bus updated successfully" });
     } catch (error) {
         res.status(500).send({ success: false, message: error.message });
@@ -29,9 +29,9 @@ router.get("/update-bus", authMiddlewares, async (req, res) => {
 });
 
 //delete bus
-router.post("/delete-bus", authMiddlewares, async (req, res) => {
+router.delete("/:id", authMiddlewares, async (req, res) => {
     try {
-        await Bus.findByIdAndDelete(req.body._id);
+        await Bus.findByIdAndDelete(req.params.id);
         return res.status(200).send({ success: true, message: "Bus deleted successfully" });
     } catch (error) {
         res.status(500).send({ success: false, message: error.message });
