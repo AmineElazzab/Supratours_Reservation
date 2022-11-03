@@ -105,15 +105,16 @@ router.post("/get-bookings-by-user-id", authMiddlewares, async (req, res) => {
 // cancel bookings
 router.delete("/:id", authMiddlewares, async (req, res) => {
     try {
-        await Booking.findByIdAndDelete(req.params.id)
-            && await Bus.findByIdAndDelete(req.params.id)
-                .then(res.status(200).send({
-                    message: "Booking cancelled successfully",
-                    success: true
-                }))
-
-
-
+        const booking = await Booking.findById(req.params.id);
+        const bus = await Bus.findById(booking.bus);
+        bus.seatsBooked = bus.seatsBooked.filter((seat) => !booking.seats.includes(seat));
+        await bus.save();
+        await Booking.findByIdAndDelete(req.params.id);
+        res.status(200).send({
+            message: "Booking cancelled successfully",
+            data: null,
+            success: true,
+        });
     } catch (error) {
         res.status(500).send({
             message: "Booking cancellation failed",
@@ -122,42 +123,6 @@ router.delete("/:id", authMiddlewares, async (req, res) => {
         });
     }
 });
-
-
-//delet booking
-// router.delete("/:id", authMiddlewares, async (req, res) => {
-//     try {
-//         const booking = await Booking.findByIdAndDelete(req.params.id);
-//         const bus = await Bus.findByIdAndDelete(req.params.id);
-//         if (!booking || !bus) {
-//             res.status(404).send({
-//                 message: "Booking not found",
-//                 data: error,
-//                 success: false,
-//             });
-//         }
-//         booking.remove();
-//         bus.seatsBooked = bus.seatsBooked.filter(
-//             (seat) => !booking.seats.includes(seat)
-//         );
-//         await bus.save();
-//         res.status(200).send({
-//             message: "Booking cancelled successfully",
-//             data: booking,
-//             success: true,
-//         });
-
-//     } catch (error) {
-//         res.status(500).send({
-//             message: "Booking cancellation failed",
-//             data: error,
-//             success: false,
-//         });
-//     }
-// });
-
-
-
 module.exports = router;
 
 
