@@ -131,31 +131,31 @@ function Bookings() {
       render: (text, record) => (
         <div className="flex items-center">
           <button
-            className="bg-red-500 text-white px-2 py-1 rounded mr-2"
+            className=" text-black px-2 py-1 rounded mr-2"
             onClick={() => deleteBooking(record.key)}
           >
-            Cancel
+            <i class="ri-close-fill"></i>
           </button>
           <button
-            className="bg-blue-500 text-white px-2 py-1 rounded"
+            className=" text-black px-2 py-1 rounded"
             onClick={() => {
               setSelectedBooking(record);
               setShowPrintModal(true);
             }}
           >
-            Print
+            <i class="ri-printer-line"></i>
           </button>
         </div>
       ),
     },
   ];
-
+ 
   useEffect(() => {
     getBookings(); // eslint-disable-next-line
   }, []);
 
   return (
-    <div>
+    <div className="">
       <PageTitle title="Bookings" />
       <Table dataSource={bookings} columns={columns} />
       {showPrintModal && (
@@ -167,75 +167,80 @@ function Bookings() {
           }}
           visible={showPrintModal}
           footer={null}
-          width={700}
+          width={1000}
         >
-          <h1 className="text-lg flex justify-center">
-            This Your Ticket -{selectedBooking?.name}
-          </h1>
-          <hr />
-          <div className="flex justify-between mt-4">
-            <p className="flex justify-center">
-              <span className="font-bold">Bus Name / Bus Number :</span>{" "}
-              {selectedBooking?.bus.name} / {selectedBooking?.number}
-            </p>
-            <p className="flex justify-center">
-              <span className="font-bold">From - To :</span>{" "}
-              {selectedBooking?.from} - {selectedBooking?.to}
-            </p>
-            <p className="flex justify-center">
-              <span className="font-bold">Date :</span> {selectedBooking?.date}
-            </p>
-          </div>
-          <div className="flex justify-between mt-4">
-            <p className="flex justify-center">
-              <span className="font-bold">Depart Time :</span>{" "}
-              {selectedBooking?.departureTime}
-            </p>
-            <p className="flex justify-center">
-              <span className="font-bold">Seats Booked :</span>{" "}
-              {selectedBooking?.seatsBooked}
-            </p>
-            <p className="flex justify-center">
-              <span className="font-bold">Total Price :</span>{" "}
-              {selectedBooking?.price} DH
-            </p>
-          </div>
-          <div className="flex justify-between mt-4 mx-20">
-            <p className="flex justify-center">
-              <span className="font-bold ">Status :</span>{" "}
-              <span className="text-orange-600">{selectedBooking.status}</span>
-            </p>
-            <p className="flex justify-center">
-              <span className="font-bold">Passenger Email :</span>{" "}
-              {selectedBooking?.email}
-            </p>
-          </div>
-          <p className="flex justify-center">
-            <span className="font-bold">
-              Free Wifi :
-              <span>
-                <i class="ri-arrow-down-s-fill"></i>
-              </span>{" "}
-            </span>
-          </p>
+          <div className="">
+          <div className="flex justify-center">
+  
+  <img alt='Barcode Generator TEC-IT'
+       src='https://barcode.tec-it.com/barcode.ashx?code=Code128&multiplebarcodes=true&translate-esc=true&data=6356ab6efb7652302d19dd91&eclevel=L'/>
+</div>
 
-          <div className="text-center flex justify-center">
-            <img
-              alt="Barcode Generator TEC-IT"
-              src="https://barcode.tec-it.com/barcode.ashx?data=WIFI%3AT%3AWPA%3BS%3AYoucode1%3BP%3AYcode%402021%3B%3B&code=QRCode_Wifi&dmsize=Default&eclevel=L"
-            />
-          </div>
+            <hr />
+            <div className="flex justify-between mt-4">
+              <p className="flex justify-center">
+                <span className="font-bold">Bus Name / Bus Number :</span>{" "}
+                {selectedBooking?.bus.name} / {selectedBooking?.number}
+              </p>
+              <p className="flex justify-center">
+                <span className="font-bold">From - To :</span>{" "}
+                {selectedBooking?.from} - {selectedBooking?.to}
+              </p>
+              <p className="flex justify-center">
+                <span className="font-bold">Date :</span>{" "}
+                {selectedBooking?.date}
+              </p>
+            </div>
+            <div className="flex justify-between mt-4">
+              <p className="flex justify-center">
+                <span className="font-bold">Depart Time :</span>{" "}
+                {selectedBooking?.departureTime}
+              </p>
+              <p className="flex justify-center">
+                <span className="font-bold">Seats Booked: </span>{" "}
+                {selectedBooking?.seatsBooked}
+              </p>
+              <p className="flex justify-center">
+                <span className="font-bold">Total Price :</span>{" "}
+                {selectedBooking?.price} DH
+              </p>
+              <p className="flex justify-center">
+                <span className="font-bold ">Status :</span>{" "}
+                <span className="text-orange-600">
+                  {selectedBooking.status}
+                </span>
+              </p>
+            </div>
 
-          <div className="pt-[8px] text-center font-serif"></div>
-          <div className="flex justify-center mt-4">
-            <button
-              className="bg-green-500 text-white px-2 py-1 rounded"
-              onClick={() => {
-                window.print();
-              }}
-            >
-              Print
-            </button>
+            <p className="flex justify-center">
+              <span className="font-bold">
+                Free Wifi :
+                <span>
+                  <i class="ri-arrow-down-s-fill"></i>
+                </span>{" "}
+              </span>
+            </p>
+
+            <div className="text-center flex justify-center">
+              <img
+                alt="Barcode Generator TEC-IT"
+                src="https://barcode.tec-it.com/barcode.ashx?data=WIFI%3AT%3AWPA%3BS%3AYoucode1%3BP%3AYcode%402021%3B%3B&code=QRCode_Wifi&dmsize=Default&eclevel=L"
+              />
+            </div>
+
+            <div className="pt-[8px] text-center font-serif"></div>
+            <div className="flex justify-center mt-4">
+              <button
+                className=" text-black px-2 py-1 rounded"
+                onClick={() => {
+                  if (window.print) {
+                    document.write('<input type="button" value="Sent to Printer" id="btnRead" class="btn btn-warning" onClick="window.print()">');
+                    }
+                }}
+              >
+                <i class="ri-printer-line"></i>
+              </button>
+            </div>
           </div>
         </Modal>
       )}
