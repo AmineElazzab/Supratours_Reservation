@@ -2,7 +2,7 @@ import React from "react";
 import { Form, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-// import zelij from "../assets/a.png";
+import Navbar from "../components/Navbars/AuthNavbar.js";
 
 function Login() {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ function Login() {
       if (response.data.success) {
         message.success(response.data.message);
         localStorage.setItem("token", response.data.data);
-        navigate("/");
+        navigate("/home");
       } else {
         message.error(response.data.message);
       }
@@ -21,6 +21,7 @@ function Login() {
     }
   };
   return (
+    
     //   <div class="relative flex h-screen w-screen justify-center">
     //     <img
     //     src="./images/Bus.jpg "
@@ -88,6 +89,7 @@ function Login() {
           "url(https://as1.ftcdn.net/v2/jpg/05/30/14/94/1000_F_530149440_dOufDGgeDawe2YaFgltTnPwqzHfgUVKy.jpg)",
       }}
     >
+      <Navbar transparent />
       <div className="absolute bg-gradient-to-b from-black to-black opacity-75 inset-0 z-0" />
 
       <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
@@ -118,7 +120,7 @@ function Login() {
                       className="w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-orange-400"
                       type="password"
                       autoComplete="true"
-                      autoFocus
+                      
                       placeholder="********"
                       required
                     />
