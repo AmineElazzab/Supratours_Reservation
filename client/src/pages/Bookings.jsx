@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import BusForm from "../components/BusForm";
 import PageTitle from "../components/PageTitle";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import { message, Modal, Table } from "antd";
@@ -62,6 +61,9 @@ function Bookings() {
       title: "Passenger Name",
       dataIndex: "name",
       key: "name",
+      render: (text, record) => {
+        return record.user.name;
+      },
     },
     {
       title: "Bus Name & Number",
@@ -149,7 +151,7 @@ function Bookings() {
       ),
     },
   ];
- 
+
   useEffect(() => {
     getBookings(); // eslint-disable-next-line
   }, []);
@@ -157,7 +159,9 @@ function Bookings() {
   return (
     <div className="">
       <PageTitle title="Bookings" />
-      <Table dataSource={bookings} columns={columns} />
+      <Table 
+      className="table-responsive"
+      dataSource={bookings} columns={columns} />
       {showPrintModal && (
         <Modal
           title="Print Ticket"
@@ -170,11 +174,12 @@ function Bookings() {
           width={1000}
         >
           <div className="">
-          <div className="flex justify-center">
-  
-  <img alt='Barcode Generator TEC-IT'
-       src='https://barcode.tec-it.com/barcode.ashx?code=Code128&multiplebarcodes=true&translate-esc=true&data=6356ab6efb7652302d19dd91&eclevel=L'/>
-</div>
+            <div className="flex justify-center">
+              <img
+                alt="Barcode Generator TEC-IT"
+                src="https://barcode.tec-it.com/barcode.ashx?code=Code128&multiplebarcodes=true&translate-esc=true&data=6356ab6efb7652302d19dd91&eclevel=L"
+              />
+            </div>
 
             <hr />
             <div className="flex justify-between mt-4">
@@ -234,8 +239,10 @@ function Bookings() {
                 className=" text-black px-2 py-1 rounded"
                 onClick={() => {
                   if (window.print) {
-                    document.write('<input type="button" value="Sent to Printer" id="btnRead" class="btn btn-warning" onClick="window.print()">');
-                    }
+                    document.write(
+                      '<input type="button" value="Sent to Printer" id="btnRead" class="btn btn-warning" onClick="window.print()">'
+                    );
+                  }
                 }}
               >
                 <i class="ri-printer-line"></i>
