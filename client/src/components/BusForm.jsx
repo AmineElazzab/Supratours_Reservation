@@ -3,6 +3,7 @@ import { Col, Form, message, Modal, Row } from "antd";
 import { axiosInstance } from "../helpers/axiosInstance";
 import { useDispatch } from "react-redux";
 import { ShowLoading, HideLoading } from "../redux/alertsSlice";
+import { cities } from "list-of-moroccan-cities";
 // import moment from "moment";
 
 function BusForm({
@@ -41,6 +42,14 @@ function BusForm({
       dispatch(HideLoading());
     }
   };
+  //get all citys marocaine
+  const { cities } = require("list-of-moroccan-cities");
+  // const citys = cities.map((city) => {
+  //   return {
+  //     label: city.name,
+  //     value: city.name,
+  //   };
+  // });
 
   return (
     <Modal
@@ -61,6 +70,7 @@ function BusForm({
                 type="text"
                 className="w-full border border-orange-300 p-2 rounded"
               />
+              
             </Form.Item>
           </Col>
           <Col lg={12} xs={24}>
@@ -74,25 +84,33 @@ function BusForm({
           <Col lg={12} xs={24}>
             <Form.Item label="Total Seats" name="seats">
               <input
-                type="text"
+                type="number"
                 className="w-full border border-orange-300 p-2 rounded"
+                max="52"
+                min="52"
               />
             </Form.Item>
           </Col>
           <Col lg={12} xs={24}>
             <Form.Item label="From" name="from">
-              <input
-                type="text"
-                className="w-full border border-orange-300 p-2 rounded"
-              />
+              <select className="w-full border border-orange-300 p-2 rounded">
+                {cities.map((city) => (
+                  <option key={city.value} value={city.value}>
+                    {city.label}
+                  </option>
+                ))}
+              </select>
             </Form.Item>
           </Col>
           <Col lg={12} xs={24}>
             <Form.Item label="To" name="to">
-              <input
-                type="text"
-                className="w-full border border-orange-300 p-2 rounded"
-              />
+              <select className="w-full border border-orange-300 p-2 rounded">
+                {cities.map((city) => (
+                  <option key={city.value} value={city.value}>
+                    {city.label}
+                  </option>
+                ))}
+              </select>
             </Form.Item>
           </Col>
           <Col lg={8} xs={24}>
@@ -100,6 +118,11 @@ function BusForm({
               <input
                 type="date"
                 className="w-full border border-orange-300 p-2 rounded"
+                min={
+                  type === "add" && "update"
+                    ? new Date().toISOString().split("T")[0]
+                    : selectedBus.date
+                }
               />
             </Form.Item>
           </Col>
@@ -129,10 +152,18 @@ function BusForm({
           </Col>
           <Col lg={12} xs={24}>
             <Form.Item label="Type" name="type">
-              <input
-                type="text"
+              <select
                 className="w-full border border-orange-300 p-2 rounded"
-              />
+                name=""
+                id=""
+              >
+                <option>Vip</option>
+                <option>Normal</option>
+                <option>Deluxe</option>
+                <option>Semi-Deluxe</option>
+                <option>Ordinary</option>
+                <option>Luxury</option>
+              </select>
             </Form.Item>
           </Col>
           <Col lg={24} xs={24}>
@@ -142,7 +173,11 @@ function BusForm({
                 name=""
                 id=""
               >
-                <option value="Yet to start">Yet To Start</option>
+                <option value="Yet to start" defaultValue={
+                  type === "add" 
+                    ? "Yet to start"
+                    : selectedBus.status
+                }>Yet to start</option>
                 <option value="Running">Running</option>
                 <option value="Completed">Completed</option>
               </select>
