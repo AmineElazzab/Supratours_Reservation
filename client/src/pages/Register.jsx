@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { ShowLoading, HideLoading } from "../redux/alertsSlice";
+import Navbar from "../components/Navbars/AuthNavbar.js";
+
 
 function Register() {
   const navigate = useNavigate();
@@ -91,6 +93,7 @@ function Register() {
           "url(https://as1.ftcdn.net/v2/jpg/05/30/14/94/1000_F_530149440_dOufDGgeDawe2YaFgltTnPwqzHfgUVKy.jpg)",
       }}
     >
+      <Navbar />
       <div className="absolute bg-gradient-to-b from-black to-black opacity-75 inset-0 z-0" />
 
       <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
@@ -117,7 +120,7 @@ function Register() {
                     type="email"
                     placeholder="test@gmail.com"
                     className=" px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-orange-500 focus:bg-white focus:outline-none"
-                    autoFocus
+                    
                     autoComplete="true"
                     required
                   />
@@ -127,7 +130,7 @@ function Register() {
                     type="password"
                     placeholder="********"
                     className=" px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-orange-500 focus:bg-white focus:outline-none"
-                    autoFocus
+                    
                     autoComplete="true"
                     required
                   />
