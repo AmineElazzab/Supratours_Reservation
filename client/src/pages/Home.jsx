@@ -7,6 +7,7 @@ import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 
 function Home() {
   const { user } = useSelector((state) => state.users);
+  const [filters = {}, setFilters] = useState({});
   const dispatch = useDispatch();
   const [buses, setBuses] = useState([]);
 
@@ -32,7 +33,13 @@ function Home() {
 
   return (
     <div>
-      <div></div>
+      <div>
+        <Row>
+          <Col lg={6} sm={24}>
+            <input type="text" />
+          </Col>
+        </Row>
+      </div>
       <div>
         <Row>
           {buses.map((bus) => (
