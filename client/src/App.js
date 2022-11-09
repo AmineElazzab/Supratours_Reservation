@@ -1,4 +1,5 @@
 import 'antd/dist/antd.min.css';
+import './index.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Register from './pages/Register';
 import Login from './pages/Login';
@@ -11,6 +12,7 @@ import AdminUsers from './pages/Admin/AdminUsers';
 import AdminBookings from './pages/Admin/AdminBookings';
 import BookNow from './pages/BookNow';
 import Profile from './pages/Profile';
+import Index from './pages/Index';
 import Bookings from './pages/Bookings';
 // import Loader from './components/Loader';
 
@@ -21,8 +23,9 @@ function App() {
       {/* <Loader /> */}
       <BrowserRouter>
         <Routes>
+         
           <Route
-            path="/"
+            path="/home"
             element={
               <ProtectedRoute>
                 <Home />
@@ -91,6 +94,14 @@ function App() {
             element={
               <PublicRoute>
                 <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <PublicRoute>
+                <Index />
               </PublicRoute>
             }
           />
