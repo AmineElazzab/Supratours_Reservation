@@ -6,7 +6,7 @@ const authMiddlewares = require('../middlewares/authMiddlewares');
 
 
 //register new user
-router.post('/register', async (req, res) => {  
+router.post('/register', async (req, res) => {
     try {
         const existingUser = await User.findOne({ email: req.body.email }); //check if user already exists  
         if (existingUser) { //  if user exists, return error    
@@ -19,8 +19,8 @@ router.post('/register', async (req, res) => {
         }
         const hashedPassword = await bcrypt.hash(req.body.password, 10);        //hash password before saving to db 
         req.body.password = hashedPassword; //replace password with hashed password 
-        const newUser = new User(req.body) 
-        await newUser.save(); 
+        const newUser = new User(req.body)
+        await newUser.save();
         res.send({
             message: 'User created successfully.',
             success: true,
@@ -48,6 +48,17 @@ router.post('/login', async (req, res) => {
                 data: null,
             });
         }
+
+        if(userExists.isBlocked)
+        {
+            return res.send({
+                message: 'User Account is Bloked, Please Contact Admin',
+                success: false,
+                data: null,
+            });
+        }
+        
+
         const passwordMatch = await bcrypt.compare(req.body.password, userExists.password);
         if (!passwordMatch) {
             return res.send({
@@ -56,7 +67,7 @@ router.post('/login', async (req, res) => {
                 data: null,
             });
         }
-        const token = jwt.sign({ userId: userExists._id }, process.env.jwt_secret , { expiresIn: "1h" });
+        const token = jwt.sign({ userId: userExists._id }, process.env.jwt_secret, { expiresIn: "1h" });
 
         res.send({
             message: 'User logged in successfully.',
@@ -74,13 +85,13 @@ router.post('/login', async (req, res) => {
 });
 
 //get user by id 
-router.post("/get-user-by-id", authMiddlewares , async(req, res) => {  //authMiddlewares is a middleware function that checks if the user is logged in
+router.post("/get-user-by-id", authMiddlewares, async (req, res) => {  //authMiddlewares is a middleware function that checks if the user is logged in
     try {
         const user = await User.findById(req.body.userId);  //find user by id
-        res.send({  
+        res.send({
             message: 'User fetched successfully.',
-            success: true,  
-            data: user,  
+            success: true,
+            data: user,
         });
     } catch (error) {
         res.send({
@@ -88,12 +99,12 @@ router.post("/get-user-by-id", authMiddlewares , async(req, res) => {  //authMid
             success: false,
             data: null,
         })
-        
+
     }
 });
 
 //get all users
-router.get("/get-all-users", authMiddlewares, async(req, res) => {
+router.get("/get-all-users", authMiddlewares, async (req, res) => {
     try {
         const users = await User.find();  //find all users
         res.send({
@@ -109,28 +120,60 @@ router.get("/get-all-users", authMiddlewares, async(req, res) => {
         })
     }
 });
-    
 
-//update user
-router.post("/update-user", authMiddlewares, async(req, res) => {
+//Block users
+router.post("/block-user", authMiddlewares, async (req, res) => {
     try {
         const user = await User.findById(req.body.userId);  //find user by id
-        if (req.body.name) {  //if name is provided, update name
-            user.name = req.body.name;
-        }
-        if (req.body.email) {  //if email is provided, update email
-            user.email = req.body.email;
-        }
-        if (req.body.password) {  //if password is provided, update password
-            const hashedPassword = await bcrypt.hash(req.body.password, 10);
-            user.password = hashedPassword;
-        }
-        await user.save();  //save updated user 
+        user.isBlocked = true;  //set isBlocked to true
+        await user.save();  //save user
         res.send({
-            message: 'User updated successfully.',
+            message: 'User blocked successfully.',
             success: true,
             data: null,
         });
+    } catch (error) {
+        res.send({
+            message: 'An error occurred.',
+            success: false,
+            data: null,
+        })
+    }
+});
+
+//Unblock users
+router.post("/unblock-user", authMiddlewares, async (req, res) => {
+    try {
+        const user = await User.findById(req.body.userId);  //find user by id
+        user.isBlocked = false;  //set isBlocked to false
+        await user.save();  //save user
+        res.send({
+            message: 'User unblocked successfully.',
+            success: true,
+            data: null,
+        });
+    } catch (error) {
+        res.send({
+            message: 'An error occurred.',
+            success: false,
+            data: null,
+        })
+    }
+});
+
+
+
+
+//update user
+router.post("/update-user-permissions", authMiddlewares, async (req, res) => {
+    try {
+        await User.findByIdAndUpdate(req.body._id, req.body);
+        res.send({
+            message: 'User Permissions Update Successfully',
+            success: true,
+            data: null,
+        });
+
     } catch (error) {
         res.send({
             message: 'An error occurred.',
