@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 function Bus({ bus }) {
   const navigate = useNavigate();
   return (
-    <div className="p-3 m-2 rounded-md border-[1px] border-orange-400 hover:shadow-2xl duration-300">
+    <div className="p-3 m-2 rounded-md border-[1px] border-orange-400 hover:shadow-2xl duration-300 ">
       <h1 className="text-xl font-semibold">{bus.name}</h1>
       <div className="border-[1px] border-orange-400"></div>
       <div className="flex justify-between p-2">
