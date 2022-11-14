@@ -6,6 +6,7 @@ import PageTitle from "../../components/PageTitle";
 import { HideLoading, ShowLoading } from "../../redux/alertsSlice";
 import { message, Table } from "antd";
 import { axiosInstance } from "../../helpers/axiosInstance";
+import axios from "axios";
 
 function AdminBuses() {
   const dispatch = useDispatch();
@@ -16,7 +17,11 @@ function AdminBuses() {
   const getBuses = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await axiosInstance.get("/api/buses/get-all-buses", {});
+      const response = await axios.get("/api/buses/get-all-buses", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       dispatch(HideLoading());
       if (response.data.success) {
         setBuses(response.data.data);
@@ -29,8 +34,6 @@ function AdminBuses() {
     }
   };
 
-
-
   const cancelBooking = async (id) => {
     try {
       dispatch(ShowLoading());
@@ -38,7 +41,6 @@ function AdminBuses() {
         //id
         // bookings_id = ,
         data: {},
-
       });
       dispatch(HideLoading());
       if (response.data.success) {
@@ -115,6 +117,7 @@ function AdminBuses() {
       ),
     },
   ];
+
   useEffect(() => {
     getBuses(); // eslint-disable-next-line
   }, []);
