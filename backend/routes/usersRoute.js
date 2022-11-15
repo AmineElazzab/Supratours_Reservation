@@ -49,15 +49,14 @@ router.post('/login', async (req, res) => {
             });
         }
 
-        if(userExists.isBlocked)
-        {
+        if (userExists.isBlocked) {
             return res.send({
                 message: 'User Account is Bloked, Please Contact Admin',
                 success: false,
                 data: null,
             });
         }
-        
+
 
         const passwordMatch = await bcrypt.compare(req.body.password, userExists.password);
         if (!passwordMatch) {
@@ -161,7 +160,23 @@ router.post("/unblock-user", authMiddlewares, async (req, res) => {
     }
 });
 
-
+//update user
+router.put("/:id", authMiddlewares, async (req, res) => {
+        try {
+            await User.findByIdAndUpdate(req.params.id, req.body);  //find user by id and update
+            return res.status(200).send
+                ({
+                    message: 'User updated successfully.',
+                    success: true,
+                });
+        } catch (error) {
+            res.status(500).send(
+                {
+                    message: 'An error occurred.',
+                    success: false,
+                });
+        }
+    });
 
 
 //update user
