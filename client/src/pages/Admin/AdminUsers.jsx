@@ -132,6 +132,31 @@ function AdminUsers() {
       dataIndex: "email",
     },
     {
+      title: "Phone",
+      dataIndex: "phone",
+      render: (phone) => {
+        return `+212 ${phone}`;
+      },
+    },
+    {
+      title: "Time Creat",
+      dataIndex: "createdAt",
+      render: (text) => {
+        return new Date(text).toLocaleString();
+      },
+    },
+    {
+      title: "Time Update",
+      dataIndex: "updatedAt",
+      render: (text) => {
+       
+          return (text) 
+            ? new Date(text).toLocaleString()
+            : "Not Updated";
+        }
+      
+    },
+    {
       title: "Status",
       dataIndex: "",
       render: (data) => {
