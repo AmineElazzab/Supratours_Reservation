@@ -12,7 +12,7 @@ function Login() {
       if (response.data.success) {
         message.success(response.data.message);
         localStorage.setItem("token", response.data.data);
-        navigate("/home");
+        window.location.href = "/home";
       } else {
         message.error(response.data.message);
       }
@@ -21,67 +21,6 @@ function Login() {
     }
   };
   return (
-    
-    //   <div class="relative flex h-screen w-screen justify-center">
-    //     <img
-    //     src="./images/Bus.jpg "
-    //     alt="" />
-    //     <div>
-    //       <div class="mx-auto flex h-full flex-col justify-center text-white xl:w-1/2">
-    //         <div>
-    //           <p class="text-2xl">Login|</p>
-    //           <p>please login to continue|</p>
-    //         </div>
-    //         <div class="my-6">
-    //           <button class="flex w-full justify-center rounded-3xl border-none bg-white p-1 text-black hover:bg-gray-200 sm:p-2"><img src="https://freesvg.org/img/1534129544.png" class="mr-2 w-6 object-fill" />Sign in with Google</button>
-    //         </div>
-    //         <div>
-    //           <fieldset class="border-t border-solid border-gray-600">
-    //             <legend class="mx-auto px-2 text-center text-sm">Or login via our secure system</legend>
-    //           </fieldset>
-    //         </div>
-    //         <div class="mt-10">
-    //         <Form layout="vertical" onFinish={onFinish}>
-    //         <Form.Item label="Email" name="email">
-    //             <div>
-    //               <label class="mb-2.5 block font-extrabold" for="email">Email</label>
-    //               <input type="email" id="email" class="inline-block w-full rounded-full bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30" placeholder="mail@user.com" />
-    //             </div>
-    //             </Form.Item>
-    //             <Form.Item label="Password" name="password">
-    //             <div class="">
-    //               <label class="mb-2.5 block font-extrabold" for="email">Password</label>
-    //               <input type="password" id="email" class="inline-block w-full rounded-full bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow" />
-    //             </div>
-    //             </Form.Item>
-    //             <div class="mt-4 flex w-full flex-col justify-between sm:flex-row">
-    //               Remember me
-    //               <div><input type="checkbox" id="remember" /><label for="remember" class="mx-2 text-sm">Remember me</label></div>
-    //               Forgot password
-    //               <div>
-    //                 <a href="#" class="text-sm hover:text-gray-200">Forgot password</a>
-    //               </div>
-    //             </div>
-    //             <div class="my-10">
-    //             <button className="w-full block bg-orange-500 hover:bg-orange-400 focus:bg-orange-400 text-white font-semibold rounded-lg px-4 py-3 mt-6">
-    //         Login
-    //       </button>
-    //             </div>
-    //             <div className="flex justify-center items-center mt-6">
-    //         <Link
-    //           to="/register"
-    //           className="inline-block text-sm text-orange-500 align-baseline hover:text-orange-800"
-    //         >
-    //           Create an Account!
-    //         </Link>
-    //       </div>
-    //           </Form>
-    //         </div>
-    //       </div>
-    //     </div>
-
-    //   </div>
-    // );
     <div
       className="bg-no-repeat bg-cover bg-center w-screen h-screen"
       style={{
@@ -132,11 +71,7 @@ function Login() {
                       Forgot your password?
                     </a>
                   </div>
-                {/* <div class="my-10">
-                  <button className="w-full block bg-orange-500 hover:bg-orange-400 focus:bg-orange-400 text-white font-semibold rounded-lg px-4 py-3 mt-6">
-                    Login
-                  </button>
-                </div> */}
+               
                 <div className="flex justify-center">
                   <button
                     className="bg-none cursor-pointer inline-block flex-shrink-0 text-2xl py-3 px-3 relative text-white no-underline z-10 font-bold
