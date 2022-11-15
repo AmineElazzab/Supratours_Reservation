@@ -18,11 +18,11 @@ function DefaultLayout({ children }) {
       path: "/bookings",
       icon: "ri-file-list-line",
     },
-    {
-      name: "Profile",
-      path: "/profile",
-      icon: "ri-user-line",
-    },
+    // {
+    //   name: "Profile",
+    //   path: "/profile",
+    //   icon: "ri-user-line",
+    // },
     {
       name: "Logout",
       path: "/logout",
@@ -63,8 +63,8 @@ function DefaultLayout({ children }) {
   }
 
   return (
-    <div className="layout-parent flex w-full  h-screen gap-[20px]">
-      <div className="sidebar bg-orange-600 flex flex-col justify-start px-5 py-0  ">
+    <div className="flex w-full bg-white shadow-lg shadow-black sticky">
+      <div className="h-screen sticky top-0 flex flex-col bg-orange-600 shadow justify-start px-5 py-0 ">
         <div className="sidebar-header">
           <h1 className="text-white text-[20px] mb-0 p-0 ">IL-MEGLIO</h1>
           <h1 className="role text-white text-[16px] mb-0 p-0 ">
@@ -120,7 +120,7 @@ function DefaultLayout({ children }) {
             ></i>
           )}
         </div>
-        <div className="content p-[10px]">{children}</div>
+        <div className="content p-[10px] bg-white">{children}</div>
       </div>
     </div>
   );
