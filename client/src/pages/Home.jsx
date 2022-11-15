@@ -1,4 +1,5 @@
 import { Col, message, Row } from "antd";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Bus from "../components/Bus";
@@ -14,7 +15,11 @@ function Home() {
   const getBuses = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await axiosInstance.get("/api/buses/get-all-buses", {});
+      const response = await axios.get("/api/buses/get-all-buses", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       dispatch(HideLoading());
       if (response.data.success) {
         setBuses(response.data.data);
@@ -42,9 +47,9 @@ function Home() {
       </div>
       <div>
         <Row>
-          {buses.map((bus) => (
-            <Col lg={12} xs={24} sm={24}>
-            <Bus bus={bus} />
+          {buses?.map((bus) => (
+            <Col lg={24} xs={24} sm={24}>
+              <Bus bus={bus} />
             </Col>
           ))}
         </Row>
