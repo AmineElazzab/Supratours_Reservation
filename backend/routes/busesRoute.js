@@ -3,7 +3,7 @@ const authMiddlewares = require("../middlewares/authMiddlewares");
 const Bus = require("../models/busModel");
 
 
-//ad d bus
+//add bus
 router.post("/add-bus", async (req, res) => {
     try {
         const existingBus = await Bus.findOne({ number: req.body.number }); //check if bus already exists   
