@@ -4,11 +4,11 @@ const Bus = require("../models/busModel");
 
 
 //add bus
-router.post("/add-bus", async (req, res) => {
+router.post("/add-bus", async (req, res) => {   //  
     try {
         const existingBus = await Bus.findOne({ number: req.body.number }); //check if bus already exists   
         if (existingBus) {  //  if bus exists, return error
-            return res.status(400).send({ success: false, message: "Bus already exists" });
+            return res.status(400).send({ success: false, message: "Bus already exists" }); 
         }
         const newBus = new Bus(req.body);
         await newBus.save();
@@ -21,7 +21,7 @@ router.post("/add-bus", async (req, res) => {
 //update bus
 router.put("/:id", authMiddlewares, async (req, res) => {
     try {
-        await Bus.findByIdAndUpdate(req.params.id, req.body);
+        await Bus.findByIdAndUpdate(req.params.id, req.body);  //   
         return res.status(200).send({ success: true, message: "Bus updated successfully" });
     } catch (error) {
         res.status(500).send({ success: false, message: error.message });
