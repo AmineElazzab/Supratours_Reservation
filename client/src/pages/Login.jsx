@@ -66,11 +66,11 @@ function Login() {
                   </div>
                 </Form.Item>
               
-                  <div className="text-sm text-center">
+                  {/* <div className="text-sm text-center">
                     <a className="text-orange-400 hover:text-orange-500 ">
                       Forgot your password?
                     </a>
-                  </div>
+                  </div> */}
                
                 <div className="flex justify-center">
                   <button
