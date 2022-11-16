@@ -30,11 +30,11 @@ function DefaultLayout({ children }) {
     },
   ];
   const adminMenu = [
-    {
-      name: "Home",
-      path: "/home",
-      icon: "ri-home-line",
-    },
+    // {
+    //   name: "Home",
+    //   path: "/home",
+    //   icon: "ri-home-line",
+    // },
     {
       name: "Buses",
       path: "/admin/buses",
