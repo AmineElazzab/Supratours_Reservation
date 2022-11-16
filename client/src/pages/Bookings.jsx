@@ -387,7 +387,7 @@ function Bookings() {
                       </div>
                       <div className="text-xs">
                         <div className="mb-1">
-                          Discount：{selectedBooking.price} /-Dh
+                        Price：{selectedBooking.price} /-Dh
                         </div>
                         <div className="mb-1">Baggage：10 /-Dh</div>
                         <div className="mt-8 mb-1 text-right underline">
