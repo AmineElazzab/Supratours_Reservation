@@ -159,9 +159,9 @@ function BookNow() {
             <div className="border-[1px] border-orange-400 mt-5"></div>
             <div className="flex justify-center mt-5 ">
               <SeatSelection
-                selectedSeats={selectedSeats}
+                selectedSeats={selectedSeats}    
                 setSelectedSeats={setSelectedSeats}
-                bus={bus}
+                bus={bus} 
                 // seatsBooked={bus.seatsBooked}
               />
             </div>
