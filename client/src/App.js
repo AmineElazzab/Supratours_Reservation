@@ -14,6 +14,7 @@ import BookNow from './pages/BookNow';
 import Profile from './pages/Profile';
 import Index from './pages/Index';
 import Bookings from './pages/Bookings';
+import Test from './pages/Tets'
 // import Loader from './components/Loader';
 
 
