@@ -1,8 +1,8 @@
 import { Card, Col, Row } from "antd";
 import React from "react";
 
-function SeatSelection({ selectedSeats, setSelectedSeats, bus }) {
-  const capacity = bus.seats;
+function SeatSelection({ selectedSeats, setSelectedSeats, bus }) { // 
+  const capacity = bus.seats;    
   const selectOrUnselectSeats = (seatNumber) => {
     if (selectedSeats.includes(seatNumber)) {
       setSelectedSeats(selectedSeats.filter((seat) => seat !== seatNumber));
@@ -21,7 +21,7 @@ function SeatSelection({ selectedSeats, setSelectedSeats, bus }) {
               selectedSeats.includes(seat + 1);
               if (selectedSeats.includes(seat + 1)) {
                 seatClass = `bg-orange-500 border-[2px] border-orange-500 text-center text-black text-base font-mono p-1 cursor-pointer w-10 h-10 rounded-tl-3xl rounded-br-3xl `;
-              } else if (bus.seatsBooked.includes(seat + 1)) {
+              } else if (bus.seatsBooked.includes(seat + 1)) {  
                 seatClass = ` bg-gray-500 border-[2px] border-gray-500 text-center text-black text-base font-mono p-1 pointer-events-none w-10 h-10 rounded-tl-3xl rounded-br-3xl ${
                   bus.seatsBooked.includes(seat + 1) && "cursor-not-allowed"
                   }`;
@@ -35,7 +35,7 @@ function SeatSelection({ selectedSeats, setSelectedSeats, bus }) {
                     <div className="border-[2px] border-gray-500 text-center text-black text-base font-mono p-1 cursor-pointer w-10 h-10 rounded-tl-3xl rounded-br-3xl ">
                       <div
                         className={`seat ${seatClass}`}
-                        onClick={() => selectOrUnselectSeats(seat + 1)}
+                        onClick={() => selectOrUnselectSeats(seat + 1)}      
                       >
                         {seat + 1}
                       </div>
